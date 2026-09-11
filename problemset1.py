@@ -12,13 +12,11 @@ def truth_values(p,q):
     return vals
 
 #problem 3
-def satisfied_checker(self,statement):
+def satisfied_checker(statement):
     proposition_num=3
 
     def value_checker(p,q,r):
-        vals={"p":p,"q":q,"r":r}
-
-        return eval(statement,vals)
+        return eval(statement)
 
     for i in range(2**proposition_num):
         p=(i<=4)
@@ -28,9 +26,9 @@ def satisfied_checker(self,statement):
         val=value_checker(p,q,r)
 
         if(val==True):
-            return True
+            return "satisfied"
         elif(i==2**proposition_num-1):
-            return False
+            return "not satisfied"
 
 #knights_and_knaves
 def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
@@ -48,7 +46,7 @@ def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
         if(a_statement_b=="knight"):
             a_evaluation="a==(not a and b)"
         elif(a_statement_b=="knave"):
-                        a_evaluation="a==(not a and not b)"
+            a_evaluation="a==(not a and not b)"
         elif(a_statement_b=="blank"):
             a_evaluation="a==(not a)"
     else:
@@ -91,7 +89,6 @@ def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
 
         if(combined_evaluation):
            print({"A":"knight" if a else "knave","B":"knight" if b else "knave"})
-
 
 knights_and_knaves("knave","knave","blank","blank")
 knights_and_knaves("knight","knight","knight","knave")
