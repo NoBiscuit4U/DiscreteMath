@@ -6,29 +6,27 @@ def truth_values(p,q):
     vals.append(p and q)
     vals.append(p or q)
     vals.append(p ^ q)
-    vals.append(not p and q)
+    vals.append((not p) or q)
     vals.append(p == q)
 
     return vals
 
 #problem 3
 def satisfied_checker(statement):
-    proposition_num=3
+    bool_vals=[True,False]
 
     def value_checker(p,q,r):
         return eval(statement)
 
-    for i in range(2**proposition_num):
-        p=(i<=4)
-        q=(i in [1,2,5,6])
-        r=(i%2==0)
+    for p in bool_vals:
+        for q in bool_vals:
+            for r in bool_vals:
+                val=value_checker(p,q,r)
 
-        val=value_checker(p,q,r)
+                if(val==True):
+                    return "satisfied"
 
-        if(val==True):
-            return "satisfied"
-        elif(i==2**proposition_num-1):
-            return "not satisfied"
+    return "not satisfied"
 
 #knights_and_knaves
 def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
@@ -51,9 +49,9 @@ def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
             a_evaluation="a==(not a)"
     else:
         if(a_statement_b=="knight"):
-            a_evaluation="b==b"
+            a_evaluation="a==b"
         elif(a_statement_b=="knave"):
-            a_evaluation="b==(not b)"
+            a_evaluation="a==(not b)"
 
     if(b_statement_b=="knight"):
         if(b_statement_a=="knave"):
@@ -71,9 +69,9 @@ def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
             b_evaluation="b==(not b)"
     else:
         if(b_statement_a=="knight"):
-            b_evaluation="a==a"
+            b_evaluation="b==a"
         elif(b_statement_a=="knave"):
-            b_evaluation="a==(not a)"
+            b_evaluation="b==(not a)"
 
     print("Solution(s) to:")
     print(f"A says A is {a_statement_a} and B is {a_statement_b}")
@@ -89,8 +87,3 @@ def knights_and_knaves(a_statement_a,a_statement_b,b_statement_b,b_statement_a):
 
         if(combined_evaluation):
            print({"A":"knight" if a else "knave","B":"knight" if b else "knave"})
-
-knights_and_knaves("knave","knave","blank","blank")
-knights_and_knaves("knight","knight","knight","knave")
-knights_and_knaves("knave","knave","knight","knave")
-knights_and_knaves("knight","knight","knight","blank")
